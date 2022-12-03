@@ -16,7 +16,17 @@ module.exports = {
   },
   // 加载器
   module: {
-    rules: [],
+    rules: [
+      {
+        // 用来匹配 .css 结尾的文件
+        test: /\.css$/,
+        // use 数组里面 Loader 执行顺序是从右到左
+        use: [
+          'style-loader', // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
+          'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
+        ],
+      },
+    ],
   },
   // 插件
   plugins: [],
