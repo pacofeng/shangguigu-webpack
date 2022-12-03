@@ -26,6 +26,10 @@ module.exports = {
           'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
         ],
       },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
     ],
   },
   // 插件
