@@ -56,6 +56,13 @@ module.exports = {
           filename: 'static/images/[hash:8][ext][query]',
         },
       },
+      {
+        test: /\.(ttf|woff2?)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/media/[hash:8][ext][query]',
+        },
+      },
     ],
   },
   // 插件
