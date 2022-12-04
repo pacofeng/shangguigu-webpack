@@ -21,54 +21,59 @@ module.exports = {
   module: {
     rules: [
       {
-        // 用来匹配 .css 结尾的文件
-        test: /\.css$/,
-        // use 数组里面 Loader 执行顺序是从右到左
-        use: [
-          'style-loader', // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
-          'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
-        ],
-      },
-      {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.styl$/,
-        use: ['style-loader', 'css-loader', 'stylus-loader'],
-      },
-      {
-        test: /\.(png|jpe?g|gif|webp)$/,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: 50 * 1024, // 小于50kb的图片会被base64处理， 优点：减少请求数量，缺点：体积变得更大
+        // 只匹配上一个 loader, 剩下的就不匹配了
+        oneOf: [
+          {
+            // 用来匹配 .css 结尾的文件
+            test: /\.css$/,
+            // use 数组里面 Loader 执行顺序是从右到左
+            use: [
+              'style-loader', // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
+              'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
+            ],
           },
-        },
-        generator: {
-          // 将图片文件输出到 static/imgs 目录中
-          // 将图片文件命名 [hash:8][ext][query]
-          // [hash:8]: hash值取8位
-          // [ext]: 使用之前的文件扩展名
-          // [query]: 添加之前的query参数
-          filename: 'static/images/[hash:8][ext][query]',
-        },
-      },
-      {
-        test: /\.(ttf|woff2?|map4|map3|avi)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'static/media/[hash:8][ext][query]',
-        },
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/, // 排除node_modules代码不编译
-        loader: 'babel-loader',
+          {
+            test: /\.less$/,
+            use: ['style-loader', 'css-loader', 'less-loader'],
+          },
+          {
+            test: /\.s[ac]ss$/,
+            use: ['style-loader', 'css-loader', 'sass-loader'],
+          },
+          {
+            test: /\.styl$/,
+            use: ['style-loader', 'css-loader', 'stylus-loader'],
+          },
+          {
+            test: /\.(png|jpe?g|gif|webp)$/,
+            type: 'asset',
+            parser: {
+              dataUrlCondition: {
+                maxSize: 50 * 1024, // 小于50kb的图片会被base64处理， 优点：减少请求数量，缺点：体积变得更大
+              },
+            },
+            generator: {
+              // 将图片文件输出到 static/imgs 目录中
+              // 将图片文件命名 [hash:8][ext][query]
+              // [hash:8]: hash值取8位
+              // [ext]: 使用之前的文件扩展名
+              // [query]: 添加之前的query参数
+              filename: 'static/images/[hash:8][ext][query]',
+            },
+          },
+          {
+            test: /\.(ttf|woff2?|map4|map3|avi)$/,
+            type: 'asset/resource',
+            generator: {
+              filename: 'static/media/[hash:8][ext][query]',
+            },
+          },
+          {
+            test: /\.js$/,
+            exclude: /node_modules/, // 排除node_modules代码不编译
+            loader: 'babel-loader',
+          },
+        ],
       },
     ],
   },
