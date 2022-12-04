@@ -28,19 +28,71 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader, // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
           'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'postcss-preset-env', // 能解决大多数样式兼容性问题
+                ],
+              },
+            },
+          },
         ],
       },
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'postcss-preset-env', // 能解决大多数样式兼容性问题
+                ],
+              },
+            },
+          },
+          'less-loader',
+        ],
       },
       {
         test: /\.s[ac]ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'postcss-preset-env', // 能解决大多数样式兼容性问题
+                ],
+              },
+            },
+          },
+          'sass-loader',
+        ],
       },
       {
         test: /\.styl$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'postcss-preset-env', // 能解决大多数样式兼容性问题
+                ],
+              },
+            },
+          },
+          'stylus-loader',
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/,
