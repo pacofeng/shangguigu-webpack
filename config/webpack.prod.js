@@ -2,6 +2,7 @@
 const path = require('path');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   // 入口
@@ -25,21 +26,21 @@ module.exports = {
         test: /\.css$/,
         // use 数组里面 Loader 执行顺序是从右到左
         use: [
-          'style-loader', // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
+          MiniCssExtractPlugin.loader, // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
           'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
         ],
       },
       {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
       },
       {
         test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.styl$/,
-        use: ['style-loader', 'css-loader', 'stylus-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/,
@@ -82,6 +83,11 @@ module.exports = {
       // 以 public/index.html 为模板创建文件
       // 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
       template: path.resolve(__dirname, '../public/index.html'),
+    }),
+    // 提取css成单独文件
+    new MiniCssExtractPlugin({
+      // 定义输出文件名和目录
+      filename: 'static/css/main.css',
     }),
   ],
   // 模式
