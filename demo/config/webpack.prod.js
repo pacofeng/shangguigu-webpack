@@ -184,6 +184,10 @@ module.exports = {
         },
       }),
     ],
+    // 单入口的代码分割配置，多入口的配置请参考code-split
+    splitChunks: {
+      chunks: 'all', // 对所有模块都进行分割
+    },
   },
   // 模式
   mode: 'production', // 开发模式

@@ -12,5 +12,6 @@ module.exports = {
   },
   // 具体检查规则
   rules: { 'no-var': 2 }, // 不能使用 var 定义变量
+  plugins: ['import'], // 解决动态导入import语法报错问题 --> 实际使用eslint-plugin-import的规则解决的
   // 其他规则详见：https://eslint.bootcss.com/docs/user-guide/configuring
 };
