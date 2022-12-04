@@ -18,7 +18,9 @@ module.exports = {
     // path.resolve()方法返回一个绝对路径
     // __dirname 当前文件的文件夹绝对路径
     path: undefined, // 开发模式没有输出，不需要指定输出目录
-    filename: 'static/js/main.js', // 将 js 文件输出到 static/js 目录中
+    filename: 'static/js/[name].js', // 入口文件打包输出资源命名方式
+    chunkFilename: 'static/js/[name].chunk.js', // 动态导入模块的输出资源命名方式
+    assetModuleFilename: 'static/media/[name].[hash][ext]', // 图片、字体等通过type：asset处理处理的资源命名方式（注意用hash）
     // clean: true, // 开发模式没有输出，不需要清空输出结果
   },
   devtool: 'cheap-module-source-map',
@@ -57,21 +59,21 @@ module.exports = {
                 maxSize: 50 * 1024, // 小于50kb的图片会被base64处理， 优点：减少请求数量，缺点：体积变得更大
               },
             },
-            generator: {
-              // 将图片文件输出到 static/imgs 目录中
-              // 将图片文件命名 [hash:8][ext][query]
-              // [hash:8]: hash值取8位
-              // [ext]: 使用之前的文件扩展名
-              // [query]: 添加之前的query参数
-              filename: 'static/images/[hash:8][ext][query]',
-            },
+            // generator: {
+            //   // 将图片文件输出到 static/imgs 目录中
+            //   // 将图片文件命名 [hash:8][ext][query]
+            //   // [hash:8]: hash值取8位
+            //   // [ext]: 使用之前的文件扩展名
+            //   // [query]: 添加之前的query参数
+            //   filename: 'static/images/[hash:8][ext][query]',
+            // },
           },
           {
             test: /\.(ttf|woff2?|map4|map3|avi)$/,
             type: 'asset/resource',
-            generator: {
-              filename: 'static/media/[hash:8][ext][query]',
-            },
+            // generator: {
+            //   filename: 'static/media/[hash:8][ext][query]',
+            // },
           },
           {
             test: /\.js$/,
