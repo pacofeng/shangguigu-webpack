@@ -38,6 +38,7 @@ module.exports = {
     filename: 'static/js/main.js', // 将 js 文件输出到 static/js 目录中
     clean: true, // 自动将上次打包目录资源清空
   },
+  devtool: 'source-map',
   // 加载器
   module: {
     rules: [
