@@ -10,6 +10,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 // webpack内置的plugin，负责js的压缩
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
 
 // cpu核数
 const threads = os.cpus().length;
@@ -146,6 +147,11 @@ module.exports = {
       // 定义输出文件名和目录
       filename: 'static/css/[name].css',
       chunkFilename: 'static/css/[name].chunk.css',
+    }),
+    new PreloadWebpackPlugin({
+      // rel: 'prefetch', // prefetch兼容性更差
+      rel: 'preload', // preload兼容性更好
+      as: 'script',
     }),
   ],
   optimization: {
