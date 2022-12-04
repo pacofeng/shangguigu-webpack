@@ -1,5 +1,6 @@
 import count from './js/count';
 import sum from './js/sum';
+import { mul } from './js/math';
 // 引入 Css 资源，Webpack才会对其打包
 import './css/iconfont.css';
 import './css/index.css';
@@ -11,6 +12,7 @@ import './styl/index.styl';
 const result1 = count(2, 1);
 console.log(result1);
 console.log(sum(1, 2, 3, 4));
+console.log(mul(3, 4));
 
 // 判断是否支持HMR功能
 if (module.hot) {
