@@ -4,6 +4,25 @@ const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// 获取处理样式的Loaders
+const getStyleLoaders = (preProcessor) => {
+  return [
+    MiniCssExtractPlugin.loader, // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
+    'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            'postcss-preset-env', // 能解决大多数样式兼容性问题
+          ],
+        },
+      },
+    },
+    preProcessor,
+  ].filter(Boolean); // 过滤undefined
+};
+
 module.exports = {
   // 入口
   // 相对路径和绝对路径都行
@@ -25,74 +44,19 @@ module.exports = {
         // 用来匹配 .css 结尾的文件
         test: /\.css$/,
         // use 数组里面 Loader 执行顺序是从右到左
-        use: [
-          MiniCssExtractPlugin.loader, // 会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容
-          'css-loader', // 负责将 Css 文件编译成 Webpack 能识别的模块
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  'postcss-preset-env', // 能解决大多数样式兼容性问题
-                ],
-              },
-            },
-          },
-        ],
+        use: getStyleLoaders(),
       },
       {
         test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  'postcss-preset-env', // 能解决大多数样式兼容性问题
-                ],
-              },
-            },
-          },
-          'less-loader',
-        ],
+        use: getStyleLoaders('less-loader'),
       },
       {
         test: /\.s[ac]ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  'postcss-preset-env', // 能解决大多数样式兼容性问题
-                ],
-              },
-            },
-          },
-          'sass-loader',
-        ],
+        use: getStyleLoaders('sass-loader'),
       },
       {
         test: /\.styl$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  'postcss-preset-env', // 能解决大多数样式兼容性问题
-                ],
-              },
-            },
-          },
-          'stylus-loader',
-        ],
+        use: getStyleLoaders('stylus-loader'),
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/,
