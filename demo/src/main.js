@@ -1,3 +1,7 @@
+// 手动全部引入
+// import "core-js";
+// 手动按需引入
+// import 'core-js/es/promise';
 import count from './js/count';
 import sum from './js/sum';
 // 引入 Css 资源，Webpack才会对其打包
@@ -30,3 +34,12 @@ document.getElementById('btn').onclick = function () {
       console.log('error: ', error);
     });
 };
+
+// 添加promise代码
+const promise = Promise.resolve();
+promise.then(() => {
+  console.log('hello promise');
+});
+
+// 添加includes代码
+console.log([1, 2, 3].includes(2));

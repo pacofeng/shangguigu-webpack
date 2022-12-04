@@ -44,8 +44,8 @@ module.exports = {
     // path.resolve()方法返回一个绝对路径
     // __dirname 当前文件的文件夹绝对路径
     path: path.resolve(__dirname, '../dist'),
-    filename: 'static/js/[name].js', // 入口文件打包输出资源命名方式
-    chunkFilename: 'static/js/[name].chunk.js', // 动态导入模块的输出资源命名方式
+    filename: 'static/js/[name].[contenthash].js', // 入口文件打包输出资源命名方式
+    chunkFilename: 'static/js/[name].chunk.[contenthash].js', // 动态导入模块的输出资源命名方式
     assetModuleFilename: 'static/media/[name].[contenthash][ext]', // 图片、字体等通过type：asset处理处理的资源命名方式（注意用hash）
     clean: true, // 自动将上次打包目录资源清空
   },
