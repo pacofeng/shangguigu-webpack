@@ -46,7 +46,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: 'static/js/[name].js', // 入口文件打包输出资源命名方式
     chunkFilename: 'static/js/[name].chunk.js', // 动态导入模块的输出资源命名方式
-    assetModuleFilename: 'static/media/[name].[hash][ext]', // 图片、字体等通过type：asset处理处理的资源命名方式（注意用hash）
+    assetModuleFilename: 'static/media/[name].[contenthash][ext]', // 图片、字体等通过type：asset处理处理的资源命名方式（注意用hash）
     clean: true, // 自动将上次打包目录资源清空
   },
   devtool: 'source-map',
@@ -84,18 +84,18 @@ module.exports = {
             },
             // generator: {
             //   // 将图片文件输出到 static/imgs 目录中
-            //   // 将图片文件命名 [hash:8][ext][query]
-            //   // [hash:8]: hash值取8位
+            //   // 将图片文件命名 [contenthash:8][ext][query]
+            //   // [contenthash:8]: hash值取8位
             //   // [ext]: 使用之前的文件扩展名
             //   // [query]: 添加之前的query参数
-            //   filename: 'static/images/[hash:8][ext][query]',
+            //   filename: 'static/images/[contenthash:8][ext][query]',
             // },
           },
           {
             test: /\.(ttf|woff2?|map4|map3|avi)$/,
             type: 'asset/resource',
             // generator: {
-            //   filename: 'static/media/[hash:8][ext][query]',
+            //   filename: 'static/media/[contenthash:8][ext][query]',
             // },
           },
           {
@@ -195,6 +195,10 @@ module.exports = {
     // 单入口的代码分割配置，多入口的配置请参考code-split
     splitChunks: {
       chunks: 'all', // 对所有模块都进行分割
+    },
+    // 提取runtime文件
+    runtimeChunk: {
+      name: (entrypoint) => `runtime~${entrypoint.name}`, // runtime文件命名规则
     },
   },
   // 模式
