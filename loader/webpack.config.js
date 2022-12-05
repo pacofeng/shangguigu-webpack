@@ -16,6 +16,10 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        loader: './loaders/pitch-loader.js',
+      },
+      {
+        test: /\.js$/,
         use: ['./loaders/sync-loader.js', './loaders/async-loader.js'],
       },
       {
