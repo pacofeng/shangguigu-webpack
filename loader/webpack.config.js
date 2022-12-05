@@ -18,6 +18,10 @@ module.exports = {
         test: /\.js$/,
         use: ['./loaders/sync-loader.js', './loaders/async-loader.js'],
       },
+      {
+        test: /\.js$/,
+        loader: './loaders/raw-loader.js',
+      },
     ],
   },
   plugins: [
