@@ -37,6 +37,13 @@ module.exports = {
           author: 'Paco',
         },
       },
+      {
+        test: /\.js$/,
+        loader: './loaders/custom/babel-loader/babel-loader.js',
+        options: {
+          presets: ['@babel/preset-env'],
+        },
+      },
     ],
   },
   plugins: [
