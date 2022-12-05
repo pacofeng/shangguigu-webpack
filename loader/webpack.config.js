@@ -26,6 +26,10 @@ module.exports = {
         test: /\.js$/,
         loader: './loaders/raw-loader.js',
       },
+      {
+        test: /\.js$/,
+        loader: './loaders/custom/clean-log-loader.js',
+      },
     ],
   },
   plugins: [
