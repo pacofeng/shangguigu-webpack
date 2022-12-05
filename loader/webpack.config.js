@@ -30,6 +30,13 @@ module.exports = {
         test: /\.js$/,
         loader: './loaders/custom/clean-log-loader.js',
       },
+      {
+        test: /\.js$/,
+        loader: './loaders/custom/banner-loader/banner-loader.js',
+        options: {
+          author: 'Paco',
+        },
+      },
     ],
   },
   plugins: [
