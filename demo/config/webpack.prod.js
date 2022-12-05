@@ -209,5 +209,5 @@ module.exports = {
     },
   },
   // 模式
-  mode: 'production', // 开发模式
+  mode: 'production', // 生产模式
 };
