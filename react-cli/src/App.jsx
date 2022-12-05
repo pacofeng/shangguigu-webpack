@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { Button } from 'antd';
 // import Home from './pages/Home';
 // import About from './pages/About';
 
@@ -20,6 +20,7 @@ const App = () => (
         <Link to='/about'>About</Link>
       </li>
     </ul>
+    <Button type='primary'>按钮</Button>
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path='/home' element={<Home />} />

@@ -25,7 +25,22 @@ const getStyleLoaders = (preProcessor) => {
         },
       },
     },
-    preProcessor,
+    preProcessor && {
+      loader: preProcessor,
+      options:
+        preProcessor === 'less-loader'
+          ? {
+              // antd的自定义主题
+              lessOptions: {
+                modifyVars: {
+                  // 其他主题色：https://ant.design/docs/react/customize-theme-cn
+                  '@primary-color': '#1DA57A', // 全局主色
+                },
+                javascriptEnabled: true,
+              },
+            }
+          : {},
+    },
   ].filter(Boolean);
 };
 
@@ -171,6 +186,37 @@ module.exports = {
     ],
     splitChunks: {
       chunks: 'all',
+      cacheGroups: {
+        // layouts通常是admin项目的主体布局组件，所有路由组件都要使用的
+        // 可以单独打包，从而复用
+        // 如果项目中没有，请删除
+        layouts: {
+          name: 'layouts',
+          test: path.resolve(__dirname, '../src/layouts'),
+          priority: 40,
+        },
+        // 如果项目中使用antd，此时将所有node_modules打包在一起，那么打包输出文件会比较大。
+        // 所以我们将node_modules中比较大的模块单独打包，从而并行加载速度更好
+        // 如果项目中没有，请删除
+        antd: {
+          name: 'chunk-antd',
+          test: /[\\/]node_modules[\\/]antd(.*)/,
+          priority: 30,
+        },
+        // 将react相关的库单独打包，减少node_modules的chunk体积。
+        react: {
+          name: 'react',
+          test: /[\\/]node_modules[\\/]react(.*)?[\\/]/,
+          chunks: 'initial',
+          priority: 20,
+        },
+        libs: {
+          name: 'chunk-libs',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10, // 权重最低，优先考虑前面内容
+          chunks: 'initial',
+        },
+      },
     },
     runtimeChunk: {
       name: (entrypoint) => `runtime~${entrypoint.name}`,
@@ -189,4 +235,5 @@ module.exports = {
     compress: true,
     historyApiFallback: true, // 解决react-router刷新404问题
   },
+  performance: false, // 关闭性能分析，提升打包速度
 };
