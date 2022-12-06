@@ -7,6 +7,7 @@ class TestPlugin {
   // 3. 遍历所有插件，调用插件的 apply 方法
   // 4. 执行剩下的编译流程， 促发各个hooks事件
   apply(compiler) {
+    debugger;
     console.log('TestPlugin apply()');
 
     // 从文档可知, environment hook 是 SyncHook, 也就是同步钩子, 只能用tap注册
