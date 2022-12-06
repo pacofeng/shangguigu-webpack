@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TestPlugin = require('./plugins/test-plugin');
 const BannerWebpackPlugin = require('./plugins/custom/banner-webpack-plugin');
 const CleanWebpackPlugin = require('./plugins/custom/clean-webpack-plugin');
+const AnalyzeWebpackPlugin = require('./plugins/custom/analyze-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -23,6 +24,7 @@ module.exports = {
       author: 'Pacoooo',
     }),
     new CleanWebpackPlugin(),
+    new AnalyzeWebpackPlugin(),
   ],
   mode: 'production',
 };
